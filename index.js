@@ -54,13 +54,17 @@ inquirer
             name: 'questions',
             message: 'Which contact method should be used to contact for questions?',
             choices: ['Github', 'email']
-        },
-    ])
+        }
+    ]);
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    
-}
+.then(function(data) {
+
+    fs.writeToFile('README.md', data, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');    
+    });
+});    
 
 // TODO: Create a function to initialize app
 function init() {}
