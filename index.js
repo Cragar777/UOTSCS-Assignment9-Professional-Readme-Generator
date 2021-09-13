@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
-const fs = require['fs'];
-const inquirer = require['inquirer'];
+const fs = require('fs');
+const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = [];
@@ -27,14 +28,14 @@ inquirer
         {
             type: 'input',
             name: 'usage',
-            message: 'Describe :'
+            message: 'Describe how to use the application:'
         },
 
         {
             type: 'list',
-            name: 'licence',
+            name: 'license',
             message: 'Choose a licence for the application:',
-            choices: ['MIT', 'GPL', 'Apache']
+            choices: ['MIT', 'BSD', 'Apache', 'None']
         },
 
         {
@@ -50,17 +51,23 @@ inquirer
         },
 
         {
-            type: 'checkbox',
-            name: 'questions',
-            message: 'Which contact method should be used to contact for questions?',
-            choices: ['Github', 'email']
+            type: 'input',
+            name: 'github',
+            message: 'Enter your github username:'
+        },
+
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Enter your email:'
         }
-    ]);
+    ])
 
 // TODO: Create a function to write README file
+// Save answers in data
 .then(function(data) {
 
-    fs.writeToFile('README.md', data, (err) => {
+    fs.writeFile('README.md', generateMarkdown(data), (err) => {
         if (err) throw err;
         console.log('The file has been saved!');    
     });
